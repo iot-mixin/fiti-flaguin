@@ -38,14 +38,14 @@ paths:
       security:
         - bearerAuth:
             - read:phrase
-  /phrases/{phrasesId}:
+  /phrases/{phraseId}:
     get:
       tags:
         - phrases
       summary: Find phrase order by ID
       operationId: getPhraseById
       parameters:
-        - name: phrasesId
+        - name: phraseId
           in: path
           description: ID of order that needs to be fetched
           required: true
@@ -102,7 +102,7 @@ paths:
       summary: Delete phrase order by ID
       operationId: deletePhraseByID
       parameters:
-        - name: phrasesId
+        - name: phraseId
           in: path
           description: ID of the order that needs to be deleted
           required: true
