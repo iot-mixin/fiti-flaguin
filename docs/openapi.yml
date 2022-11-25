@@ -1,0 +1,150 @@
+openapi: 3.0.3
+info:
+  title: Fiti Flaguin - OpenAPI 3.0
+  description: |-
+    This API does things
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: fitiflaguin@gmail.com
+  license:
+    name: MIT
+    url: https://choosealicense.com/licenses/mit/
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://localhost:5000/api/v1
+tags:
+  - name: phrases
+    description: Everything about your Phrase
+paths:
+  /phrases:
+    get:
+      tags:
+        - phrases
+      summary: Returns phrases
+      description: Returns a list of phrases
+      operationId: getPhrases
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Phrase'
+      security:
+        - bearerAuth:
+            - read:phrase
+  /phrases/{phraseId}:
+    get:
+      tags:
+        - phrases
+      summary: Find phrase order by ID
+      operationId: getPhraseById
+      parameters:
+        - name: phraseId
+          in: path
+          description: ID of order that needs to be fetched
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Phrase'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found
+      security:
+        - bearerAuth:
+            - read:phrase
+    put:
+      tags:
+        - phrases
+      summary: Create a phrase with given ID
+      operationId: createPhraseByID
+      parameters:
+        - name: phraseId
+          in: path
+          description: ID of order that needs to be fetched
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+          $ref: '#/components/requestBodies/Phrase'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Phrase'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found
+      security:
+        - bearerAuth:
+            - read:phrase
+            - write:phrase
+    delete:
+      tags:
+        - phrases
+      summary: Delete phrase order by ID
+      operationId: deletePhraseByID
+      parameters:
+        - name: phraseId
+          in: path
+          description: ID of the order that needs to be deleted
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: successful operation
+      security:
+        - bearerAuth:
+            - read:phrase
+            - write:phrase
+components:
+  schemas:
+    Phrase:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: b06b68a9-b8f2-4004-9f77-a5ed9771310f
+        content:
+          type: string
+          example: Content
+        owner:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  requestBodies:
+    Phrase:
+      description: Phrase object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Phrase'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
