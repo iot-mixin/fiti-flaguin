@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
-	onMount(() => {
-		console.log('Hello From Home');
-	});
+  onMount(() => {
+    console.log("Hello From Home");
+  });
 </script>
 
 <h1>Welcome to SvelteKit</h1>
