@@ -27,14 +27,14 @@ paths:
       description: Returns a list of phrases
       operationId: getPhrases
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Phrase'
+                  $ref: "#/components/schemas/Phrase"
       security:
         - bearerAuth:
             - read:phrase
@@ -53,15 +53,15 @@ paths:
             type: string
             format: uuid
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Phrase'
-        '400':
+                $ref: "#/components/schemas/Phrase"
+        "400":
           description: Invalid ID supplied
-        '404':
+        "404":
           description: Order not found
       security:
         - bearerAuth:
@@ -80,17 +80,17 @@ paths:
             type: string
             format: uuid
       requestBody:
-          $ref: '#/components/requestBodies/Phrase'
+        $ref: "#/components/requestBodies/Phrase"
       responses:
-        '201':
+        "201":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Phrase'
-        '400':
+                $ref: "#/components/schemas/Phrase"
+        "400":
           description: Invalid ID supplied
-        '404':
+        "404":
           description: Order not found
       security:
         - bearerAuth:
@@ -110,7 +110,7 @@ paths:
             type: string
             format: uuid
       responses:
-        '204':
+        "204":
           description: successful operation
       security:
         - bearerAuth:
@@ -142,7 +142,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Phrase'
+            $ref: "#/components/schemas/Phrase"
   securitySchemes:
     bearerAuth:
       type: http
