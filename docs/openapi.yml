@@ -80,7 +80,7 @@ paths:
             type: string
             format: uuid
       requestBody:
-          $ref: '#/components/requestBodies/Phrase'
+        $ref: '#/components/requestBodies/Phrase'
       responses:
         '201':
           description: successful operation
