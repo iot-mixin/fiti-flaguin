@@ -4,7 +4,7 @@ declare namespace App {
 		title?: string;
 		content?: string;
 		menus?: { slug: string; title: string }[];
-		shouldLoad: boolean;
+		shouldLoad?: boolean;
 	}
 	// interface Error {}
 	// interface Platform {}
