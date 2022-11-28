@@ -3,7 +3,6 @@ declare namespace App {
   interface PageData {
     title?: string;
     content?: string;
-    menus?: { slug: string; title: string }[];
     shouldLoad?: boolean;
   }
   // interface Error {}

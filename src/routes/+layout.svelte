@@ -3,14 +3,12 @@
   import { authContextKey, authStore } from "$lib/shared/infrastructure/stores/auth";
   import Header from "$lib/shared/infrastructure/components/header.svelte";
   import Footer from "$lib/shared/infrastructure/components/footer.svelte";
-  import type { LayoutData } from "./$types";
   import { setContext } from "svelte";
 
   setContext<AuthStore>(authContextKey, authStore);
-  export let data: LayoutData;
 </script>
 
-<Header menus={data.menus} />
+<Header />
 <main>
   <slot />
 </main>
@@ -33,7 +31,8 @@
   :global(#root) {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 100px 1fr 100px;
+    grid-template-rows: auto 1fr 100px;
+    padding: 4px 4px 2px 4px;
   }
   main {
     font-size: 1.6rem;
