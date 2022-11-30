@@ -8,7 +8,7 @@
 
 <header>
   <nav class="border split-nav header_nav--container">
-    <div class="header_nav--title">Welcome to Fiti Flaguin</div>
+    <span class="header_nav--title">Welcome to Fiti Flaguin</span>
     {#if $authStore.loggedIn}
       <button class="header_nav--logout" on:click|preventDefault={() => authStore.logOut()}>Bye {$authStore.token}</button>
     {/if}
@@ -26,6 +26,13 @@
   }
   .header_nav--title {
     font-size: 2rem;
+    border-bottom-color: var(--primary);
+    background-image: none;
+    border-bottom-left-radius: 15px 3px;
+    border-bottom-right-radius: 15px 5px;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    padding-bottom: 0.1rem;
   }
   .header_nav--container {
     display: grid;
