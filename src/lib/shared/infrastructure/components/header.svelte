@@ -1,35 +1,47 @@
 <script lang="ts">
-  import { getContext, onMount } from "svelte";
+  import { getContext } from "svelte";
   import type { AuthStore } from "../stores/auth";
   import { authContextKey } from "../stores/auth";
 
-  export let menus: { slug: string; title: string }[];
   const authStore = getContext<AuthStore>(authContextKey);
-  onMount(() => {});
 </script>
 
 <header>
-  <div>Welcome to Fiti Flaguin</div>
-  {#if $authStore.loggedIn}
-    <nav>
-      {#each menus as menu (menu.slug)}
-        <a href={menu.slug}>{menu.title}</a>
-      {/each}
-    </nav>
-    <button on:click={() => authStore.logOut()}> Bye {$authStore.token} </button>
-  {/if}
+  <nav class="border split-nav header_nav--container">
+    <span class="header_nav--title">Welcome to Fiti Flaguin</span>
+    {#if $authStore.loggedIn}
+      <button class="header_nav--logout" on:click|preventDefault={() => authStore.logOut()}>Bye {$authStore.token}</button>
+    {/if}
+  </nav>
 </header>
 
 <style>
-  header {
-    font-size: 1.6rem;
-    padding: 2rem;
+  header,
+  nav {
+    height: 55px;
   }
-  nav,
-  div {
-    text-align: center;
+  nav.split-nav {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
-  nav > a {
-    padding: 5px;
+  .header_nav--title {
+    font-size: 2rem;
+    border-bottom-color: var(--primary);
+    background-image: none;
+    border-bottom-left-radius: 15px 3px;
+    border-bottom-right-radius: 15px 5px;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    padding-bottom: 0.1rem;
+  }
+  .header_nav--container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    justify-self: center;
+    align-items: center;
+  }
+  .header_nav--logout {
+    grid-column-start: col-start 3;
+    font-size: 1.2rem;
   }
 </style>
