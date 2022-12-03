@@ -35,11 +35,13 @@ The following environment variables are required to deploy the server:
 | :----------------- | :------------------------ | :----: |
 | `USER_COOKIE_NAME` | Cookie name to store user | string |
 | `SUPABASE_URL`     | Supabase project url      | string |
-| `SUPABASE_KEY` 🔑   | Supabase project key      | string |
+| `SUPABASE_KEY` 🔑  | Supabase project key      | string |
 
 **Notes:**
+
 - Configuration variables with 🔑 are sensitive data. DO NOT push them in any circumstance.
 
 ## Authors
+
 - Pablo Renero: @Canario0
 - Ismael Taboada: @ismtabo
