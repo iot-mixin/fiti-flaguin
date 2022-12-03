@@ -1,8 +1,8 @@
-import { USER_COOKIE_NAME } from "$env/static/private";
-import type { ServerLoad } from "@sveltejs/kit";
+import { getServerSession } from "@supabase/auth-helpers-sveltekit";
+import type { LayoutServerLoad } from "./$types";
 
-export const load: ServerLoad = ({ cookies }) => {
+export const load: LayoutServerLoad = async (event) => {
   return {
-    isLoggedIn: cookies.get(USER_COOKIE_NAME) != null
+    session: await getServerSession(event)
   };
 };

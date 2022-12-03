@@ -5,8 +5,15 @@
 <form action="/?/logout" method="post">
   <header>
     <nav class="border split-nav header_nav--container">
-      <span class="header_nav--title">Welcome to Fiti Flaguin</span>
+      <span class="header_nav--title"><a href="/">Welcome to Fiti Flaguin</a></span>
       {#if isLoggedIn}
+        <div class="header_nav--collapsible">
+          <div class="collapsible-body">
+            <ul class="inline">
+              <li><a class="header_nav" href="/profile">Profile</a></li>
+            </ul>
+          </div>
+        </div>
         <button class="header_nav--logout" type="submit">Logout</button>
       {/if}
     </nav>

@@ -1,12 +1,17 @@
+/// <reference types="@sveltejs/kit" />
+
 declare namespace App {
-  interface Locals {
-    user: import('@supabase/supabase-js').User | null;
+  // interface Locals {}
+  interface PageData {
+    session: import("@supabase/supabase-js").Session | null;
+    title?: string;
+    content?: string;
+    shouldLoad?: boolean;
   }
-  // interface PageData {
-  //   title?: string;
-  //   content?: string;
-  //   shouldLoad?: boolean;
-  // }
   // interface Error {}
   // interface Platform {}
+  interface Supabase {
+    Database: import("./DatabaseDefinitions").Database;
+    SchemaName: "public";
+  }
 }

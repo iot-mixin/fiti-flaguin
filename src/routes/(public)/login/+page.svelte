@@ -6,34 +6,65 @@
 
   let email: string = "";
   let password: string = "";
+  let sendLinkEmail: string = "";
 </script>
 
-<form
-  action="/login"
-  method="POST"
-  use:enhance={() => {
-    return async ({ update }) => {
-      await update();
-    };
-  }}
->
-  <span
-    ><label for="email">Email:</label>
-    <input id="email" name="email" type="email" bind:value={email} /></span
-  >
-  <span
-    ><label for="password">Password:</label>
-    <input id="password" name="password" type="password" bind:value={password} /></span
-  >
-  {#if form?.missing}
-    <p>
-      {#if "email" in form}email field is required.{/if}
-      {#if "password" in form}Password field is required.{/if}
-      {JSON.stringify(form)}
-    </p>
-  {/if}
-  {#if form?.incorrect}
-    <p>Invalid credentials!</p>
-  {/if}
-  <button type="submit">Log In</button>
-</form>
+<div class="row">
+  <div class="col-6 col border row">
+    <div class="col-6 col padding-large">
+      <form action="/login?/login" method="POST" use:enhance>
+        <h3>Login</h3>
+        <span class="row"
+          ><label class="col" for="email">Email:</label>
+          <input
+            class="col"
+            id="email"
+            name="email"
+            type="email"
+            bind:value={email}
+            required
+          /></span
+        >
+        <span class="row"
+          ><label class="col" for="password">Password:</label>
+          <input
+            class="col"
+            id="password"
+            name="password"
+            type="password"
+            bind:value={password}
+            required
+          /></span
+        >
+        {#if form?.login && form?.error}
+          <span class="row">
+            <p class="text-danger">{form.error}</p>
+          </span>
+        {/if}
+        <span class="row"><button type="submit">Log In</button></span>
+      </form>
+    </div>
+    <div class="col-6 col padding-large">
+      <form action="/login?/sendLink" method="POST" use:enhance>
+        <h3>Have your forgot your password?</h3>
+        <span class="row"
+          ><label class="col" for="email">Email:</label>
+          <input
+            class="col"
+            id="email"
+            name="email"
+            type="email"
+            bind:value={sendLinkEmail}
+            required
+          /></span
+        >
+        {#if !form?.login && form?.error}
+          <span class="row">
+            <p class="text-danger">{form.error}</p>
+          </span>
+        {/if}
+        <span class="row"><button type="submit">Send me a login link</button></span>
+      </form>
+    </div>
+  </div>
+</div>

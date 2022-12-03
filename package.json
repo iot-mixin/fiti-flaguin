@@ -35,6 +35,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@supabase/auth-helpers-sveltekit": "^0.8.6",
     "@supabase/supabase-js": "^2.1.1",
     "dayjs": "^1.11.6"
   }

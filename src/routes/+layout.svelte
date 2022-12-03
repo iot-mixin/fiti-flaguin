@@ -1,12 +1,26 @@
 <script lang="ts">
+  import { invalidate } from "$app/navigation";
+  import { page } from "$app/stores";
+  import { supabaseClient } from "$lib/db";
   import Footer from "$lib/shared/infrastructure/components/footer.svelte";
   import Header from "$lib/shared/infrastructure/components/header.svelte";
-  import type { LayoutData } from "./$types";
+  import { onMount } from "svelte";
 
-  export let data: LayoutData;
+  onMount(() => {
+    const {
+      data: { subscription }
+    } = supabaseClient.auth.onAuthStateChange(() => {
+      invalidate("supabase:auth");
+      invalidate("/login");
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  });
 </script>
 
-<Header isLoggedIn={data.isLoggedIn} />
+<Header isLoggedIn={$page.data.session !== null} />
 <main>
   <slot />
 </main>

@@ -1,14 +1,13 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import { onMount } from "svelte";
-  import type { PageData } from "./$types";
 
   onMount(() => {
     console.log("Hello From Home");
   });
-
-  export let data: PageData;
 </script>
 
-<h1>Welcome to SvelteKit, dear {data.user}</h1>
+<h1>Welcome to SvelteKit, dear {$page.data.session?.user.email}</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<a href="/profile">Profile</a>
 <a href="/about">About my site</a>

@@ -1,15 +1,10 @@
-import { USER_COOKIE_NAME } from "$env/static/private";
-import { redirect, type Actions, type ServerLoad } from "@sveltejs/kit";
-
-export const load: ServerLoad = async ({ locals }) => {
-  return {
-    user: locals.user?.email
-  };
-};
+import { getSupabase } from "@supabase/auth-helpers-sveltekit";
+import { redirect, type Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
-  logout: async ({ cookies }) => {
-    cookies.delete(USER_COOKIE_NAME);
-    throw redirect(302, "/login");
+  logout: async (event) => {
+    const { supabaseClient } = await getSupabase(event);
+    await supabaseClient.auth.signOut();
+    throw redirect(303, "/");
   }
 };
