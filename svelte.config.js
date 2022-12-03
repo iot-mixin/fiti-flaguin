@@ -9,7 +9,10 @@ const config = {
 
   kit: {
     adapter: adapter(),
-    alias: {}
+    alias: {},
+    csrf: {
+      checkOrigin: process.env.NODE_ENV === 'production'
+    }
   }
 };
 
