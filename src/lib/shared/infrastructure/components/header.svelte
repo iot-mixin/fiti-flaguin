@@ -2,42 +2,26 @@
   export let isLoggedIn: boolean = false;
 </script>
 
-<form action="/?/logout" method="post">
-  <header>
-    <nav class="border split-nav header_nav--container">
-      <span class="header_nav--title"><a href="/">Welcome to Fiti Flaguin</a></span>
-      {#if isLoggedIn}
-        <div class="header_nav--collapsible">
-          <div class="collapsible-body">
-            <ul class="inline">
-              <li><a class="header_nav" href="/profile">Profile</a></li>
-            </ul>
-          </div>
-        </div>
-        <button class="header_nav--logout" type="submit">Logout</button>
-      {/if}
-    </nav>
-  </header>
-</form>
+<header>
+  <nav class="border split-nav header_nav--container">
+    <div class="nav-brand">
+      <h4><a href="/">Welcome to Fiti Flaguin</a></h4>
+    </div>
+    {#if isLoggedIn}
+      <div class="header_nav--logout">
+        <a class="paper-btn header_nav--profile-btn" href="/profile">Profile</a>
+        <form action="/?/logout" method="post" style="display: inline;">
+          <button type="submit">Logout</button>
+        </form>
+      </div>
+    {/if}
+  </nav>
+</header>
 
 <style>
-  header,
-  nav {
-    height: 55px;
-  }
   nav.split-nav {
     padding-left: 1rem;
     padding-right: 1rem;
-  }
-  .header_nav--title {
-    font-size: 2rem;
-    border-bottom-color: var(--primary);
-    background-image: none;
-    border-bottom-left-radius: 15px 3px;
-    border-bottom-right-radius: 15px 5px;
-    border-bottom-style: solid;
-    border-bottom-width: 5px;
-    padding-bottom: 0.1rem;
   }
   .header_nav--container {
     display: grid;
@@ -47,6 +31,9 @@
   }
   .header_nav--logout {
     grid-column-start: col-start 3;
-    font-size: 1.2rem;
+  }
+  .header_nav--profile-btn:hover {
+    border-color: inherit;
+    border-bottom: 2px solid;
   }
 </style>

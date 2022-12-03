@@ -31,9 +31,6 @@
 <Footer />
 
 <style>
-  :global(html) {
-    font-size: 10px;
-  }
   :global(body) {
     box-sizing: border-box;
     margin: 0;
