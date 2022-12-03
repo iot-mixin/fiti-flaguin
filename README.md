@@ -31,11 +31,10 @@ You can preview the production build with `yarn run preview`.
 
 The following environment variables are required to deploy the server:
 
-| Variable           | Description               |  type  |
-| :----------------- | :------------------------ | :----: |
-| `USER_COOKIE_NAME` | Cookie name to store user | string |
-| `SUPABASE_URL`     | Supabase project url      | string |
-| `SUPABASE_KEY` 🔑   | Supabase project key      | string |
+| Variable                | Description          |  type  |
+| :---------------------- | :------------------- | :----: |
+| `PUBLIC_SUPABASE_URL`   | Supabase project url | string |
+| `PUBLIC_SUPABASE_KEY` 🔑 | Supabase project key | string |
 
 **Notes:**
 - Configuration variables with 🔑 are sensitive data. DO NOT push them in any circumstance.
