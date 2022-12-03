@@ -12,15 +12,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
   }
 
-  // protect POST requests to all routes that start with /(auth)
-  if (event.route.id?.startsWith("/(auth)") && event.request.method === "POST") {
-    const { session } = await getSupabase(event);
-
-    if (!session) {
-      throw redirect(303, "/login");
-    }
-  }
-
+  // redirect authenticated user to home page
   if (event.url.pathname.startsWith("/login")) {
     const { session } = await getSupabase(event);
     if (session) {
