@@ -5,15 +5,12 @@ import { invalid, redirect, type Actions } from "@sveltejs/kit";
 export const actions: Actions = {
   loginWithGoogle: async (event) => {
     const { supabaseClient } = await getSupabase(event);
-    console.log("predator");
 
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
       provider: "google"
     });
-    console.log(data);
 
     if (error) {
-      console.error(error);
       if (error instanceof AuthApiError && error.status === 400) {
         return invalid(400, {
           method: "loginWithGoogle" as const,
