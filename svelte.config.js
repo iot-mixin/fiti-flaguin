@@ -11,7 +11,7 @@ const config = {
     adapter: adapter(),
     alias: {},
     csrf: {
-      checkOrigin: process.env.NODE_ENV === 'production'
+      checkOrigin: process.env.NODE_ENV === "production"
     }
   }
 };

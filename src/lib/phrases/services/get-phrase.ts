@@ -1,6 +1,6 @@
 import type { TypedSupabaseClient } from "@supabase/auth-helpers-sveltekit/dist/types";
 import { error } from "@sveltejs/kit";
-import type { Phrase } from '../domain/types';
+import type { Phrase } from "../domain/types";
 
 export const getPhrase = async (
   supabaseClient: TypedSupabaseClient,
