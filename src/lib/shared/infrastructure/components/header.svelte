@@ -1,19 +1,17 @@
 <script lang="ts">
-  import { getContext } from "svelte";
-  import type { AuthStore } from "../stores/auth";
-  import { authContextKey } from "../stores/auth";
-
-  const authStore = getContext<AuthStore>(authContextKey);
+  export let isLoggedIn: boolean = false;
 </script>
 
-<header>
-  <nav class="border split-nav header_nav--container">
-    <span class="header_nav--title">Welcome to Fiti Flaguin</span>
-    {#if $authStore.loggedIn}
-      <button class="header_nav--logout" on:click|preventDefault={() => authStore.logOut()}>Bye {$authStore.token}</button>
-    {/if}
-  </nav>
-</header>
+<form action="/?/logout" method="post">
+  <header>
+    <nav class="border split-nav header_nav--container">
+      <span class="header_nav--title">Welcome to Fiti Flaguin</span>
+      {#if isLoggedIn}
+        <button class="header_nav--logout" type="submit">Logout</button>
+      {/if}
+    </nav>
+  </header>
+</form>
 
 <style>
   header,

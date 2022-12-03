@@ -1,14 +1,12 @@
 <script lang="ts">
-  import type { AuthStore } from "$lib/shared/infrastructure/stores/auth";
-  import { authContextKey, authStore } from "$lib/shared/infrastructure/stores/auth";
-  import Header from "$lib/shared/infrastructure/components/header.svelte";
   import Footer from "$lib/shared/infrastructure/components/footer.svelte";
-  import { setContext } from "svelte";
+  import Header from "$lib/shared/infrastructure/components/header.svelte";
+  import type { LayoutData } from "./$types";
 
-  setContext<AuthStore>(authContextKey, authStore);
+  export let data: LayoutData;
 </script>
 
-<Header />
+<Header isLoggedIn={data.isLoggedIn} />
 <main>
   <slot />
 </main>

@@ -1,0 +1,4 @@
+{
+  "path": ".env",
+  "output": "./types"
+}

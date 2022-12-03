@@ -1,10 +1,39 @@
 <script lang="ts">
-  import type { AuthStore } from "$lib/shared/infrastructure/stores/auth";
-  import { authContextKey } from "$lib/shared/infrastructure/stores/auth";
-  import { getContext, onMount } from "svelte";
+  import { enhance } from "$app/forms";
+  import type { ActionData } from "./$types";
 
-  const authStore = getContext<AuthStore>(authContextKey);
-  onMount(() => {});
+  export let form: ActionData;
+
+  let email: string = "";
+  let password: string = "";
 </script>
 
-<button on:click={() => authStore.logIn("Test")}>Log In</button>
+<form
+  action="/login"
+  method="POST"
+  use:enhance={() => {
+    return async ({ update }) => {
+      await update();
+    };
+  }}
+>
+  <span
+    ><label for="email">Email:</label>
+    <input id="email" name="email" type="email" bind:value={email} /></span
+  >
+  <span
+    ><label for="password">Password:</label>
+    <input id="password" name="password" type="password" bind:value={password} /></span
+  >
+  {#if form?.missing}
+    <p>
+      {#if "email" in form}email field is required.{/if}
+      {#if "password" in form}Password field is required.{/if}
+      {JSON.stringify(form)}
+    </p>
+  {/if}
+  {#if form?.incorrect}
+    <p>Invalid credentials!</p>
+  {/if}
+  <button type="submit">Log In</button>
+</form>
