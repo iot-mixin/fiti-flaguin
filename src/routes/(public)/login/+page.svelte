@@ -36,12 +36,20 @@
             required
           /></span
         >
-        {#if form?.login && form?.error}
+        {#if form?.method === "login" && form?.error}
           <span class="row">
             <p class="text-danger">{form.error}</p>
           </span>
         {/if}
         <span class="row"><button type="submit">Log In</button></span>
+        {#if form?.method === "loginWithGoogle" && form?.error}
+          <span class="row">
+            <p class="text-danger">{form.error}</p>
+          </span>
+        {/if}
+      </form>
+      <form action="/login?/loginWithGoogle" method="post" use:enhance>
+        <span class="row"><button type="submit">Log In With Google</button></span>
       </form>
     </div>
     <div class="col-6 col padding-large">
@@ -58,7 +66,7 @@
             required
           /></span
         >
-        {#if !form?.login && form?.error}
+        {#if form?.method === "magicLink" && form?.error}
           <span class="row">
             <p class="text-danger">{form.error}</p>
           </span>

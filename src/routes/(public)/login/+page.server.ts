@@ -20,7 +20,7 @@ export const actions: Actions = {
       console.error(error);
       if (error instanceof AuthApiError && error.status === 400) {
         return invalid(400, {
-          login: true,
+          method: "login" as const,
           error: "Invalid credentials." as const,
           values: {
             email
@@ -28,7 +28,7 @@ export const actions: Actions = {
         });
       }
       return invalid(500, {
-        login: true,
+        method: "login" as const,
         error: "Server error. Try again later." as const,
         values: {
           email
@@ -37,6 +37,33 @@ export const actions: Actions = {
     }
 
     throw redirect(303, "/");
+  },
+  loginWithGoogle: async (event) => {
+    const { supabaseClient } = await getSupabase(event);
+    console.log("predator");
+
+    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+      provider: "google"
+    });
+    console.log(data);
+
+    if (error) {
+      console.error(error);
+      if (error instanceof AuthApiError && error.status === 400) {
+        return invalid(400, {
+          method: "loginWithGoogle" as const,
+          error: "Invalid credentials." as const,
+          values: {}
+        });
+      }
+      return invalid(500, {
+        method: "loginWithGoogle" as const,
+        error: "Server error. Try again later." as const,
+        values: {}
+      });
+    }
+
+    throw redirect(303, data.url);
   },
   sendLink: async (event) => {
     const { request } = event;
@@ -52,7 +79,7 @@ export const actions: Actions = {
       console.error(error);
       if (error instanceof AuthApiError && error.status === 400) {
         return invalid(400, {
-          login: false,
+          method: "magicLink" as const,
           error: "Invalid email." as const,
           values: {
             email
@@ -60,7 +87,7 @@ export const actions: Actions = {
         });
       }
       return invalid(500, {
-        login: false,
+        method: "magicLink" as const,
         error: "Server error. Try again later." as const,
         values: {
           email

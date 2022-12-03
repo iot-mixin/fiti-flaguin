@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { invalidate } from "$app/navigation";
+  import { goto, invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import { supabaseClient } from "$lib/db";
   import Footer from "$lib/shared/infrastructure/components/footer.svelte";
@@ -9,9 +9,13 @@
   onMount(() => {
     const {
       data: { subscription }
-    } = supabaseClient.auth.onAuthStateChange(() => {
+    } = supabaseClient.auth.onAuthStateChange((event, session) => {
+      debugger;
+      console.log({ event, session });
       invalidate("supabase:auth");
-      invalidate("/login");
+      if (session) {
+        goto("/", { invalidateAll: true });
+      }
     });
 
     return () => {
