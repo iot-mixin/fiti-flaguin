@@ -1,14 +1,30 @@
 <script lang="ts">
-  import type { AuthStore } from "$lib/shared/infrastructure/stores/auth";
-  import { authContextKey, authStore } from "$lib/shared/infrastructure/stores/auth";
-  import Header from "$lib/shared/infrastructure/components/header.svelte";
+  import { goto, invalidate } from "$app/navigation";
+  import { page } from "$app/stores";
+  import { supabaseClient } from "$lib/db";
   import Footer from "$lib/shared/infrastructure/components/footer.svelte";
-  import { setContext } from "svelte";
+  import Header from "$lib/shared/infrastructure/components/header.svelte";
+  import { onMount } from "svelte";
 
-  setContext<AuthStore>(authContextKey, authStore);
+  onMount(() => {
+    const {
+      data: { subscription }
+    } = supabaseClient.auth.onAuthStateChange((event, session) => {
+      debugger;
+      console.log({ event, session });
+      invalidate("supabase:auth");
+      if (session) {
+        goto("/", { invalidateAll: true });
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  });
 </script>
 
-<Header />
+<Header isLoggedIn={$page.data.session !== null} />
 <main>
   <slot />
 </main>
