@@ -7,7 +7,7 @@
   });
 </script>
 
-<h1>Welcome to SvelteKit, dear {$page.data.session?.user.email}</h1>
+<h2>Welcome to SvelteKit, dear {$page.data.session?.user.email}</h2>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 <a href="/profile">Profile</a>
 <a href="/about">About my site</a>

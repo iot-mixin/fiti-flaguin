@@ -9,7 +9,6 @@
     </div>
     {#if isLoggedIn}
       <div class="header_nav--logout">
-        <a class="paper-btn header_nav--profile-btn" href="/profile">Profile</a>
         <form action="/?/logout" method="post" style="display: inline;">
           <button type="submit">Logout</button>
         </form>
@@ -31,9 +30,5 @@
   }
   .header_nav--logout {
     grid-column-start: col-start 3;
-  }
-  .header_nav--profile-btn:hover {
-    border-color: inherit;
-    border-bottom: 2px solid;
   }
 </style>
