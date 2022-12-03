@@ -15,6 +15,12 @@ yarn run dev
 yarn run dev -- --open
 ```
 
+Do not forget to run husky to set the commit hooks:
+
+```bash
+npx husky install
+```
+
 ## Building
 
 To create a production version of your app:
@@ -31,9 +37,9 @@ You can preview the production build with `yarn run preview`.
 
 The following environment variables are required to deploy the server:
 
-| Variable                | Description          |  type  |
-| :---------------------- | :------------------- | :----: |
-| `PUBLIC_SUPABASE_URL`   | Supabase project url | string |
+| Variable                 | Description          |  type  |
+| :----------------------- | :------------------- | :----: |
+| `PUBLIC_SUPABASE_URL`    | Supabase project url | string |
 | `PUBLIC_SUPABASE_KEY` 🔑 | Supabase project key | string |
 
 **Notes:**

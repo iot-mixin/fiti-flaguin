@@ -25,10 +25,10 @@
 
 <style>
   .login {
-   display: flex; 
-   justify-content: center;
-   align-items: center;
-   height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
   }
   .login--card {
     max-width: 400px;

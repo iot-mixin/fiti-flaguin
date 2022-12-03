@@ -24,6 +24,8 @@
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^4.0.0",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.4",
     "prettier": "^2.6.2",
     "prettier-plugin-svelte": "^2.7.0",
     "svelte": "^3.44.0",
@@ -38,5 +40,9 @@
     "@supabase/auth-helpers-sveltekit": "^0.8.6",
     "@supabase/supabase-js": "^2.1.1",
     "dayjs": "^1.11.6"
+  },
+  "lint-staged": {
+    "src/**/*": "yarn run format",
+    "tests/**/*": "yarn run format"
   }
 }
