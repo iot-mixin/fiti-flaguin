@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto, invalidate } from "$app/navigation";
+  import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import { supabaseClient } from "$lib/db";
   import Header from "$lib/shared/infrastructure/components/header.svelte";
@@ -8,11 +8,8 @@
   onMount(() => {
     const {
       data: { subscription }
-    } = supabaseClient.auth.onAuthStateChange((event, session) => {
+    } = supabaseClient.auth.onAuthStateChange(() => {
       invalidate("supabase:auth");
-      if (session) {
-        goto("/", { invalidateAll: true });
-      }
     });
 
     return () => {
