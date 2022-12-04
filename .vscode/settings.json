@@ -1,4 +1,4 @@
 {
-    "vite.autoStart": false,
-    "vite.buildCommand": "yarn run build"
+  "vite.autoStart": false,
+  "vite.buildCommand": "yarn run build"
 }
