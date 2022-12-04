@@ -36,5 +36,5 @@ jobs:
       - run: yarn run lint
       - run: yarn test
     env:
-      PUBLIC_SUPABASE_URL: ""
-      PUBLIC_SUPABASE_KEY: ""
+      PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+      PUBLIC_SUPABASE_KEY: ${{ secrets.PUBLIC_SUPABASE_KEY }}
