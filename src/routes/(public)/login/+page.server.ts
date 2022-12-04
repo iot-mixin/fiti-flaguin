@@ -4,10 +4,14 @@ import { invalid, redirect, type Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
   loginWithGoogle: async (event) => {
+    const { request } = event;
     const { supabaseClient } = await getSupabase(event);
 
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
-      provider: "google"
+      provider: "google",
+      options: {
+        redirectTo: new URL(request.url).origin
+      }
     });
 
     if (error) {
