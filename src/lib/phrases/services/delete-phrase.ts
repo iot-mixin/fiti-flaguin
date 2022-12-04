@@ -2,7 +2,7 @@ import type { TypedSupabaseClient } from "@supabase/auth-helpers-sveltekit/dist/
 
 export const deletePhrase = async (
   supabaseClient: TypedSupabaseClient,
-  phraseId: bigint
+  phraseId: number
 ): Promise<void> => {
   const { error: err } = await supabaseClient.from("phrases").delete().eq("id", phraseId);
   if (err) {

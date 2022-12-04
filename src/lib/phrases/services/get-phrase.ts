@@ -4,7 +4,7 @@ import type { Phrase } from "../domain/types";
 
 export const getPhrase = async (
   supabaseClient: TypedSupabaseClient,
-  phraseId: bigint
+  phraseId: number
 ): Promise<Phrase> => {
   const { data: phrases, error: err } = await supabaseClient
     .from("phrases")

@@ -4,7 +4,7 @@ import { getPhrase } from "./get-phrase";
 
 export const updatePhrase = async (
   supabaseClient: TypedSupabaseClient,
-  phraseId: bigint,
+  phraseId: number,
   phrase: UpdatePhrase
 ): Promise<void> => {
   await getPhrase(supabaseClient, phraseId);
