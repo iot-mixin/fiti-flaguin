@@ -42,7 +42,7 @@
     "vite": "^3.2.4"
   },
   "lint-staged": {
-    "src/**/*": "yarn run format",
+    "src/!(lib/assets/*)**/*": "yarn run format",
     "tests/**/*": "yarn run format"
   }
 }
