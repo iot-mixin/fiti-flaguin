@@ -33,5 +33,8 @@ jobs:
           npx playwright install
           npx playwright install-deps
       - run: yarn run check
+        env:
+          PUBLIC_SUPABASE_URL: ""
+          PUBLIC_SUPABASE_KEY: ""
       - run: yarn run lint
       - run: yarn test
