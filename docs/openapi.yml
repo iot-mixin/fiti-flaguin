@@ -17,59 +17,66 @@ servers:
   - url: http://localhost:5173/api/v1
 tags:
   - name: phrases
-    description: Everything about your Phrase
+    description: Everything about Phrases
+  - name: likes
+    description: Everything about Likes
 paths:
   /phrases:
     get:
       tags:
         - phrases
-      summary: Returns phrases
-      description: Returns a list of phrases
+      summary: Returns list of phrases
       operationId: getPhrases
       responses:
         "200":
-          description: successful operation
+          description: successful
           content:
             application/json:
               schema:
                 type: array
+                maxItems: 1000
                 items:
                   $ref: "#/components/schemas/Phrase"
+        "401":
+          description: unauthorized
       security:
         - cookieAuth: []
     post:
       tags:
         - phrases
       summary: Creates new phrase
-      description: Creates a new phrase
       operationId: createPhrase
       requestBody:
         $ref: "#/components/requestBodies/UpsertPhrase"
       responses:
         "200":
-          description: successful operation
+          description: successful
+        "401":
+          description: unauthorized
       security:
         - cookieAuth: []
   /phrases/{phraseId}:
     get:
       tags:
         - phrases
-      summary: Find phrase order by ID
-      operationId: getPhraseById
+      summary: Find phrase by ID
+      operationId: getPhrase
       parameters:
         - name: phraseId
           in: path
-          description: ID of order that needs to be fetched
+          description: ID of phrase that needs to be fetched
           required: true
           schema:
             type: number
       responses:
         "200":
-          description: successful operation
+          description: successful
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Phrase"
+        "401":
+          description: unauthorized
         "404":
           description: Phrase not found
       security:
@@ -77,12 +84,12 @@ paths:
     put:
       tags:
         - phrases
-      summary: Create a phrase with given ID
-      operationId: createPhraseByID
+      summary: Update a phrase by ID
+      operationId: updatePhrase
       parameters:
         - name: phraseId
           in: path
-          description: ID of order that needs to be fetched
+          description: ID of phrase that needs to be update
           required: true
           schema:
             type: number
@@ -90,26 +97,105 @@ paths:
         $ref: "#/components/requestBodies/UpsertPhrase"
       responses:
         "200":
-          description: successful operation
+          description: successful
+        "401":
+          description: unauthorized
         "404":
-          description: Phrase not found
+          description: not found
       security:
         - cookieAuth: []
     delete:
       tags:
         - phrases
-      summary: Delete phrase order by ID
-      operationId: deletePhraseByID
+      summary: Delete a phrase by ID
+      operationId: deletePhrase
       parameters:
         - name: phraseId
           in: path
-          description: ID of the order that needs to be deleted
+          description: ID of the phrase that needs to be deleted
           required: true
           schema:
             type: number
       responses:
         "204":
-          description: successful operation
+          description: no content
+        "401":
+          description: unauthorized
+      security:
+        - cookieAuth: []
+  /phrases/{phrasesId}/likes:
+    get:
+      tags:
+        - phrases
+        - likes
+      summary: Returns phrase's likes by ID
+      description: Returns the list phrase's likes
+      operationId: getPhraseLikes
+      parameters:
+        - name: phraseId
+          in: path
+          description: ID of phrase that needs to be fetched
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 1000
+                items:
+                  $ref: "#/components/schemas/Like"
+        "401":
+          description: unauthorized
+        "404":
+          description: not found
+      security:
+        - cookieAuth: []
+    put:
+      tags:
+        - phrases
+        - likes
+      summary: Create a phrase's like by ID for given user
+      operationId: createPhraseLike
+      parameters:
+        - name: phraseId
+          in: path
+          description: ID of phrase of the like that needs to be created
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: successful
+        "401":
+          description: unauthorized
+        "404":
+          description: not found
+      security:
+        - cookieAuth: []
+    delete:
+      tags:
+        - phrases
+        - likes
+      summary: Delete phrase's like by ID for the current user
+      operationId: deletePhraseLike
+      parameters:
+        - name: phraseId
+          in: path
+          description: ID of the phrase of the like that needs to be deleted
+          required: true
+          schema:
+            type: number
+      responses:
+        "204":
+          description: no content
+        "401":
+          description: unauthorized
+        "404":
+          description: not found
       security:
         - cookieAuth: []
 components:
@@ -131,12 +217,17 @@ components:
         updated_at:
           type: string
           format: date-time
-    CreatePhrase:
+    Like:
       type: object
       properties:
-        content:
+        phrase_id:
+          type: number
+        user_id:
           type: string
-          example: Content
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
   requestBodies:
     Phrase:
       description: Phrase object
@@ -149,7 +240,11 @@ components:
       content:
         application/x-www-form-urlencoded:
           schema:
-            $ref: "#/components/schemas/CreatePhrase"
+            type: object
+            properties:
+              content:
+                type: string
+                example: Content
   securitySchemes:
     cookieAuth:
       type: apiKey
