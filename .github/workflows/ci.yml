@@ -38,4 +38,3 @@ jobs:
     env:
       PUBLIC_SUPABASE_URL: ""
       PUBLIC_SUPABASE_KEY: ""
-      
