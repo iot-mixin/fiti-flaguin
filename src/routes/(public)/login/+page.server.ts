@@ -7,7 +7,10 @@ export const actions: Actions = {
     const { supabaseClient } = await getSupabase(event);
 
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
-      provider: "google"
+      provider: "google",
+      options: {
+        redirectTo: new URL(event.request.url).origin
+      }
     });
 
     if (error) {
