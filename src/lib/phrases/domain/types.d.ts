@@ -6,11 +6,8 @@ export interface Phrase {
   user_id: uuid;
 }
 
-export interface CreatePhrase {
-  content: string;
+export interface Like {
+  phrase_id: number;
   user_id: uuid;
-}
-
-export interface UpdatePhrase {
-  content: string;
+  created_at: string;
 }

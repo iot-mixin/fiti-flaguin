@@ -1,5 +1,5 @@
 import type { TypedSupabaseClient } from "@supabase/auth-helpers-sveltekit/dist/types";
-import type { CreatePhrase } from "../domain/types";
+import type { CreatePhrase } from "./types";
 
 export const createPhrase = async (
   supabaseClient: TypedSupabaseClient,
