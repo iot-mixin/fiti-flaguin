@@ -1,6 +1,7 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
   import type { ActionData } from "./$types";
+  import logo from "$lib/assets/google-icon.svg";
 
   export let form: ActionData;
 </script>
@@ -16,7 +17,10 @@
               <p class="text-danger">{form.error}</p>
             </span>
           {/if}
-          <span class="row"><button type="submit">Log In With Google</button></span>
+          <button type="submit">
+            <img alt="Google Logo" src={logo} class="login--social-icon" />
+            Log In With Google
+          </button>
         </form>
       </div>
     </div>
@@ -42,5 +46,11 @@
     flex-direction: column;
     align-items: center;
     margin-top: 2em;
+  }
+  .login--social-icon {
+    display: inline;
+    height: 1.5rem;
+    vertical-align: text-bottom;
+    margin-right: 0.5rem;
   }
 </style>
