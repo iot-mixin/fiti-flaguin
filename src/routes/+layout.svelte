@@ -25,6 +25,7 @@
 
 <style>
   :global(body) {
+    background: url("background.jpg");
     box-sizing: border-box;
     margin: 0;
     overflow: hidden;
@@ -42,5 +43,6 @@
   }
   main {
     padding: 2rem;
+    overflow: hidden;
   }
 </style>

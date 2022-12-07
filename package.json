@@ -33,6 +33,7 @@
     "@supabase/supabase-js": "^2.1.1",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
+    "date-fns": "^2.29.3",
     "dayjs": "^1.11.6",
     "svelte": "^3.44.0",
     "svelte-check": "^2.7.1",

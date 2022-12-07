@@ -35,6 +35,7 @@
     height: 80%;
   }
   .login--card {
+    background-color: white;
     max-width: 400px;
     min-width: 300px;
     width: 100%;
