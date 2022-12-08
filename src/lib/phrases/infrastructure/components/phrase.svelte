@@ -7,7 +7,7 @@
 
   export let content = "";
   export let lastUpdate: Date;
-  export let removeable: boolean = false;
+  export let removeable = false;
 
   const borderClasses = ["", "border-2", "border-3", "border-4", "border-5", "border-6"];
   const borderIndex = Math.floor(Math.random() * borderClasses.length);
