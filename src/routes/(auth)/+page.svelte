@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Phrase from "$lib/phrases/infrastructure/phrase.svelte";
+  import Phrase from "$lib/phrases/infrastructure/components/phrase.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
