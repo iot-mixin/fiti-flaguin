@@ -2,7 +2,7 @@ export interface Phrase {
   id: bigint;
   content: string;
   created_at: string;
-  update_at: string;
+  updated_at: string;
   user_id: uuid;
 }
 
