@@ -4,7 +4,7 @@ import type { Phrase } from "../domain/types";
 export const getLikes = async (supabaseClient: TypedSupabaseClient, phraseId: number) => {
   const { data: phrases, error } = await supabaseClient
     .from("likes")
-    .select()
+    .select("*, user:users(*)")
     .eq("phrase_id", phraseId)
     .returns<Phrase>();
   if (error) {

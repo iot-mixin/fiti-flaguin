@@ -6,16 +6,16 @@ export const getPhrase = async (
   supabaseClient: TypedSupabaseClient,
   phraseId: number
 ): Promise<Phrase> => {
-  const { data: phrases, error: err } = await supabaseClient
+  const { data: phrase, error: err } = await supabaseClient
     .from("phrases")
-    .select<"*", Phrase>()
+    .select("*, user:users!phrases_user_id_fkey(*), likes(*, user:users(*))")
     .eq("id", phraseId)
-    .returns<Phrase>();
+    .returns<Phrase>()
+    .single();
   if (err) {
     console.error(err);
     throw new Error(`error fetching phrase [id=${phraseId}]`, { cause: err });
   }
-  const phrase = phrases.at(0);
   if (phrase == null) {
     throw error(404);
   }
