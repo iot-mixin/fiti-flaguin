@@ -25,7 +25,7 @@
 
 <style>
   :global(body) {
-    background: url("background.jpg");
+    background: url("/background.jpg");
     box-sizing: border-box;
     margin: 0;
     overflow: hidden;
