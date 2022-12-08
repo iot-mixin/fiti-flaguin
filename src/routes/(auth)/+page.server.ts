@@ -1,10 +1,10 @@
 import type { Phrase } from "$lib/phrases/domain/types";
+import type { Actions } from "@sveltejs/kit";
+import type { PageServerLoad } from "./$types";
 import { getSupabase } from "@supabase/auth-helpers-sveltekit";
-import { redirect, type Actions } from "@sveltejs/kit";
-import type { PageServerData } from "./$types";
+import { redirect } from "@sveltejs/kit";
 
-export const load: PageServerData = async ({ fetch }) => {
-  console.log("test");
+export const load: PageServerLoad = async ({ fetch }) => {
   const response = await fetch("/api/v1/phrases");
   const phrases: Phrase[] = await response.json();
   return {
