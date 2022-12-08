@@ -7,6 +7,7 @@
 
   export let content = "";
   export let lastUpdate: Date;
+  export let removeable: boolean = false;
 
   const borderClasses = ["", "border-2", "border-3", "border-4", "border-5", "border-6"];
   const borderIndex = Math.floor(Math.random() * borderClasses.length);
@@ -20,9 +21,11 @@
   style:background={colors[colorIndex]}
 >
   <div class="phrase--header">
-    <button class="phrase--remove-btn">
-      <img alt="closeButton" src={remove} class="phrase--remove" />
-    </button>
+    {#if removeable}
+      <button class="phrase--remove-btn">
+        <img alt="closeButton" src={remove} class="phrase--remove" />
+      </button>
+    {/if}
   </div>
   <p class="phrase--content">
     {content}
@@ -80,6 +83,7 @@
     border-radius: 1rem;
     padding: 0;
     background: transparent;
+    margin: 0;
   }
   .phrase--like,
   .phrase--remove {

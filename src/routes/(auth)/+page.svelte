@@ -7,7 +7,11 @@
 
 <article>
   {#each data.phrases as phrase (phrase.id)}
-    <Phrase content={phrase.content} lastUpdate={new Date(phrase.updated_at)} />
+    <Phrase
+      content={phrase.content}
+      lastUpdate={new Date(phrase.updated_at)}
+      removeable={phrase.user_id === data.session?.user.id}
+    />
   {/each}
 </article>
 
