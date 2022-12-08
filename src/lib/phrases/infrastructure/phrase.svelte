@@ -1,5 +1,4 @@
 <script lang="ts">
-  import formatRelative from "date-fns/formatRelative";
   import remove from "$lib/assets/close.png";
   import like from "$lib/assets/like.png";
 
@@ -27,7 +26,7 @@
     {content}
   </p>
   <div class="phrase--footer">
-    <span class="phrase--footer-date">{formatRelative(lastUpdate, today)}</span>
+    <span class="phrase--footer-date">{lastUpdate.toISOString()}</span>
     <div>
       <button class="phrase--like-btn">
         <img alt="like" src={like} class="phrase--like" />

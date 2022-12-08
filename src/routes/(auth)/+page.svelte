@@ -1,7 +1,6 @@
 <script lang="ts">
   import Phrase from "$lib/phrases/infrastructure/phrase.svelte";
   import type { PageData } from "./$types";
-  import parseISO from "date-fns/parseISO";
 
   export let data: PageData;
   const today = new Date();
@@ -9,7 +8,7 @@
 
 <article>
   {#each data.phrases as phrase (phrase.id)}
-    <Phrase content={phrase.content} {today} lastUpdate={parseISO(phrase.updated_at)} />
+    <Phrase content={phrase.content} {today} lastUpdate={new Date(phrase.updated_at)} />
   {/each}
 </article>
 
