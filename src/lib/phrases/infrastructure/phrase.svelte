@@ -1,10 +1,12 @@
 <script lang="ts">
   import remove from "$lib/assets/close.png";
   import like from "$lib/assets/like.png";
+  import dayjs from "dayjs";
+  import relativeTime from "dayjs/plugin/relativeTime";
+  dayjs.extend(relativeTime);
 
-  export let content: string = "";
+  export let content = "";
   export let lastUpdate: Date;
-  export let today: Date = new Date();
 
   const borderClasses = ["", "border-2", "border-3", "border-4", "border-5", "border-6"];
   const borderIndex = Math.floor(Math.random() * borderClasses.length);
@@ -26,7 +28,7 @@
     {content}
   </p>
   <div class="phrase--footer">
-    <span class="phrase--footer-date">{lastUpdate.toISOString()}</span>
+    <span class="phrase--footer-date">{dayjs().to(lastUpdate)}</span>
     <div>
       <button class="phrase--like-btn">
         <img alt="like" src={like} class="phrase--like" />

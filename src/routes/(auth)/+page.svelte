@@ -3,12 +3,11 @@
   import type { PageData } from "./$types";
 
   export let data: PageData;
-  const today = new Date();
 </script>
 
 <article>
   {#each data.phrases as phrase (phrase.id)}
-    <Phrase content={phrase.content} {today} lastUpdate={new Date(phrase.updated_at)} />
+    <Phrase content={phrase.content} lastUpdate={new Date(phrase.updated_at)} />
   {/each}
 </article>
 
