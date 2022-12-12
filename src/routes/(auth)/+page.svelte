@@ -1,16 +1,27 @@
 <script lang="ts">
+  import { invalidate } from "$app/navigation";
+
   import Phrase from "$lib/phrases/infrastructure/components/phrase.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
+
+  const deletePhrase = async (id: bigint) => {
+    const response = await fetch(`/api/v1/phrases/${id.toString()}`, { method: "DELETE" });
+    if (response.status === 204) {
+      invalidate("app:phrases");
+    }
+  };
 </script>
 
 <article>
   {#each data.phrases as phrase (phrase.id)}
     <Phrase
+      id={phrase.id}
       content={phrase.content}
       lastUpdate={new Date(phrase.updated_at)}
       removeable={phrase.user_id === data.session?.user.id}
+      onClose={deletePhrase}
     />
   {/each}
 </article>

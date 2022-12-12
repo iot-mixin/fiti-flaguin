@@ -18,7 +18,7 @@
   });
 </script>
 
-<Header isLoggedIn={$page.data.session !== null} />
+<Header isLoggedIn={$page.data.session !== null} logoutAction="/?/logout" />
 <main>
   <slot />
 </main>
