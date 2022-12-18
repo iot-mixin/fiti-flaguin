@@ -1,8 +1,7 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
-
-  import Phrase from "$lib/phrases/infrastructure/components/phrase.svelte";
   import type { PageData } from "./$types";
+  import Phrase from "$lib/phrases/infrastructure/components/phrase.svelte";
 
   export let data: PageData;
 
@@ -17,11 +16,10 @@
 <article>
   {#each data.phrases as phrase (phrase.id)}
     <Phrase
-      id={phrase.id}
       content={phrase.content}
       lastUpdate={new Date(phrase.updated_at)}
       removeable={phrase.user_id === data.session?.user.id}
-      onClose={deletePhrase}
+      on:cancel={() => deletePhrase(phrase.id)}
     />
   {/each}
 </article>

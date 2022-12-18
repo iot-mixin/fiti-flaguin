@@ -3,13 +3,17 @@
   import like from "$lib/assets/like.png";
   import dayjs from "dayjs";
   import relativeTime from "dayjs/plugin/relativeTime";
+  import { createEventDispatcher } from "svelte";
   dayjs.extend(relativeTime);
 
-  export let id: bigint;
   export let content = "";
   export let lastUpdate: Date;
   export let removeable = false;
-  export let onClose: (id: bigint) => void;
+
+  const dispatch = createEventDispatcher();
+  function handleCancelOnClick() {
+    dispatch("cancel", {});
+  }
 
   const borderClasses = ["", "border-2", "border-3", "border-4", "border-5", "border-6"];
   const borderIndex = Math.floor(Math.random() * borderClasses.length);
@@ -24,7 +28,7 @@
 >
   <div class="phrase--header">
     {#if removeable}
-      <button class="phrase--remove-btn" on:click|preventDefault={() => onClose(id)}>
+      <button class="phrase--remove-btn" on:click|preventDefault={handleCancelOnClick}>
         <img alt="closeButton" src={remove} class="phrase--remove" />
       </button>
     {/if}

@@ -39,7 +39,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
-    padding: 4px 4px 2px 4px;
+    padding: 4px 4px 0px 4px;
   }
   main {
     padding: 2rem;
