@@ -1,16 +1,33 @@
 <script lang="ts">
-  import { invalidate } from "$app/navigation";
   import type { PageData } from "./$types";
+  import { invalidate } from "$app/navigation";
   import Phrase from "$lib/phrases/infrastructure/components/phrase.svelte";
 
   export let data: PageData;
 
-  const deletePhrase = async (id: bigint) => {
+  async function deletePhrase(id: bigint) {
     const response = await fetch(`/api/v1/phrases/${id.toString()}`, { method: "DELETE" });
     if (response.status === 204) {
       invalidate("app:phrases");
     }
-  };
+  }
+
+  async function likedPhrase(id: bigint) {
+    const response = await fetch(`/api/v1/phrases/${id.toString()}/likes`, { method: "PUT" });
+    if (response.status === 200) {
+      invalidate("app:phrases");
+    }
+  }
+
+  async function unLikePhrase(id: bigint) {
+    const response = await fetch(`/api/v1/phrases/${id.toString()}/likes`, { method: "DELETE" });
+    if (response.status === 204) {
+      invalidate("app:phrases");
+    }
+  }
+
+  console.log(data.phrases.filter((phrase) => phrase.likes.length));
+  const user_id = data.session?.user.id;
 </script>
 
 <article>
@@ -18,8 +35,12 @@
     <Phrase
       content={phrase.content}
       lastUpdate={new Date(phrase.updated_at)}
-      removeable={phrase.user_id === data.session?.user.id}
+      removeable={phrase.user_id === user_id}
+      liked={phrase.likes.some((like) => like.user_id === user_id)}
+      likeCount={phrase.likes.length}
       on:cancel={() => deletePhrase(phrase.id)}
+      on:like={() => likedPhrase(phrase.id)}
+      on:unlike={() => unLikePhrase(phrase.id)}
     />
   {/each}
 </article>
