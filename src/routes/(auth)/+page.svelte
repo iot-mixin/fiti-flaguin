@@ -36,6 +36,7 @@
     /* CAVEAT: hide scroll bar while being able to scroll for IE and Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none; /* Firefox */
+    padding-top: 4px;
   }
   /* CAVEAT: hide scroll bar while being able to scroll for Chrome */
   article::-webkit-scrollbar {

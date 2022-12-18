@@ -42,7 +42,7 @@
     padding: 4px 4px 0px 4px;
   }
   main {
-    padding: 2rem;
+    padding: 0px 2rem 0px 2rem;
     overflow: hidden;
   }
 </style>
