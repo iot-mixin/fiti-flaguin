@@ -2,32 +2,44 @@
   import type { PageData } from "./$types";
   import { invalidate } from "$app/navigation";
   import Phrase from "$lib/phrases/infrastructure/components/phrase.svelte";
+  import { onDestroy } from "svelte";
 
   export let data: PageData;
 
+  const abortController = new AbortController();
+  const user_id = data.session?.user.id;
+
+  onDestroy(() => abortController.abort());
+
   async function deletePhrase(id: bigint) {
-    const response = await fetch(`/api/v1/phrases/${id.toString()}`, { method: "DELETE" });
+    const response = await fetch(`/api/v1/phrases/${id.toString()}`, {
+      method: "DELETE",
+      signal: abortController.signal
+    });
     if (response.status === 204) {
       invalidate("app:phrases");
     }
   }
 
   async function likedPhrase(id: bigint) {
-    const response = await fetch(`/api/v1/phrases/${id.toString()}/likes`, { method: "PUT" });
+    const response = await fetch(`/api/v1/phrases/${id.toString()}/likes`, {
+      method: "PUT",
+      signal: abortController.signal
+    });
     if (response.status === 200) {
       invalidate("app:phrases");
     }
   }
 
   async function unLikePhrase(id: bigint) {
-    const response = await fetch(`/api/v1/phrases/${id.toString()}/likes`, { method: "DELETE" });
+    const response = await fetch(`/api/v1/phrases/${id.toString()}/likes`, {
+      method: "DELETE",
+      signal: abortController.signal
+    });
     if (response.status === 204) {
       invalidate("app:phrases");
     }
   }
-
-  console.log(data.phrases.filter((phrase) => phrase.likes.length));
-  const user_id = data.session?.user.id;
 </script>
 
 <article>
