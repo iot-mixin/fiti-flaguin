@@ -18,7 +18,7 @@
   });
 </script>
 
-<Header isLoggedIn={$page.data.session !== null} />
+<Header isLoggedIn={$page.data.session !== null} logoutAction="/?/logout" />
 <main>
   <slot />
 </main>
@@ -39,10 +39,10 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
-    padding: 4px 4px 2px 4px;
+    padding: 4px 4px 0px 4px;
   }
   main {
-    padding: 2rem;
+    padding: 0px 2rem 0px 2rem;
     overflow: hidden;
   }
 </style>

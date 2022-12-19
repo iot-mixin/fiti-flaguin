@@ -1,6 +1,6 @@
 import { getSupabase } from "@supabase/auth-helpers-sveltekit";
 import { AuthApiError } from "@supabase/supabase-js";
-import { invalid, redirect, type Actions } from "@sveltejs/kit";
+import { fail, redirect, type Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
   loginWithGoogle: async (event) => {
@@ -16,13 +16,13 @@ export const actions: Actions = {
 
     if (error) {
       if (error instanceof AuthApiError && error.status === 400) {
-        return invalid(400, {
+        return fail(400, {
           method: "loginWithGoogle" as const,
           error: "Invalid credentials." as const,
           values: {}
         });
       }
-      return invalid(500, {
+      return fail(500, {
         method: "loginWithGoogle" as const,
         error: "Server error. Try again later." as const,
         values: {}

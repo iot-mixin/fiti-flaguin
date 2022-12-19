@@ -1,13 +1,30 @@
 <script lang="ts">
   import remove from "$lib/assets/close.png";
-  import like from "$lib/assets/like.png";
+  import likeImg from "$lib/assets/like.png";
+  import likedImg from "$lib/assets/liked.png";
   import dayjs from "dayjs";
   import relativeTime from "dayjs/plugin/relativeTime";
+  import { createEventDispatcher } from "svelte";
   dayjs.extend(relativeTime);
 
   export let content = "";
   export let lastUpdate: Date;
   export let removeable = false;
+  export let liked = false;
+  export let likeCount = 0;
+
+  const dispatch = createEventDispatcher();
+  function handleCancelOnClick() {
+    dispatch("cancel", {});
+  }
+
+  function handleLikeOnClick() {
+    dispatch("like", {});
+  }
+
+  function handleUnLikeOnClick() {
+    dispatch("unlike", {});
+  }
 
   const borderClasses = ["", "border-2", "border-3", "border-4", "border-5", "border-6"];
   const borderIndex = Math.floor(Math.random() * borderClasses.length);
@@ -22,7 +39,7 @@
 >
   <div class="phrase--header">
     {#if removeable}
-      <button class="phrase--remove-btn">
+      <button class="phrase--remove-btn" on:click|preventDefault={handleCancelOnClick}>
         <img alt="closeButton" src={remove} class="phrase--remove" />
       </button>
     {/if}
@@ -33,8 +50,14 @@
   <div class="phrase--footer">
     <span class="phrase--footer-date">{dayjs().to(lastUpdate)}</span>
     <div>
-      <button class="phrase--like-btn">
-        <img alt="like" src={like} class="phrase--like" />
+      {#if likeCount > 0}
+        <span>{likeCount}</span>
+      {/if}
+      <button
+        class="phrase--like-btn"
+        on:click|preventDefault={liked ? handleUnLikeOnClick : handleLikeOnClick}
+      >
+        <img alt="like" src={liked ? likedImg : likeImg} class="phrase--like" />
       </button>
     </div>
   </div>
