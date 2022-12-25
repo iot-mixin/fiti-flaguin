@@ -2,8 +2,45 @@
   import AddPhrase from "$lib/phrases/infrastructure/components/add-phrase.svelte";
   import Phrase from "$lib/phrases/infrastructure/components/phrase.svelte";
   import type { PageData } from "./$types";
+  import { invalidate } from "$app/navigation";
+  import { onDestroy } from "svelte";
 
   export let data: PageData;
+
+  const abortController = new AbortController();
+  const user_id = data.session?.user.id;
+
+  onDestroy(() => abortController.abort());
+
+  async function deletePhrase(id: bigint) {
+    const response = await fetch(`/api/v1/phrases/${id.toString()}`, {
+      method: "DELETE",
+      signal: abortController.signal
+    });
+    if (response.status === 204) {
+      invalidate("app:phrases");
+    }
+  }
+
+  async function likedPhrase(id: bigint) {
+    const response = await fetch(`/api/v1/phrases/${id.toString()}/likes`, {
+      method: "PUT",
+      signal: abortController.signal
+    });
+    if (response.status === 200) {
+      invalidate("app:phrases");
+    }
+  }
+
+  async function unLikePhrase(id: bigint) {
+    const response = await fetch(`/api/v1/phrases/${id.toString()}/likes`, {
+      method: "DELETE",
+      signal: abortController.signal
+    });
+    if (response.status === 204) {
+      invalidate("app:phrases");
+    }
+  }
 </script>
 
 <article>
@@ -11,7 +48,12 @@
     <Phrase
       content={phrase.content}
       lastUpdate={new Date(phrase.updated_at)}
-      removeable={phrase.user_id === data.session?.user.id}
+      removeable={phrase.user_id === user_id}
+      liked={phrase.likes.some((like) => like.user_id === user_id)}
+      likeCount={phrase.likes.length}
+      on:cancel={() => deletePhrase(phrase.id)}
+      on:like={() => likedPhrase(phrase.id)}
+      on:unlike={() => unLikePhrase(phrase.id)}
     />
   {/each}
   <AddPhrase />
@@ -29,6 +71,7 @@
     /* CAVEAT: hide scroll bar while being able to scroll for IE and Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none; /* Firefox */
+    padding-top: 4px;
   }
   /* CAVEAT: hide scroll bar while being able to scroll for Chrome */
   article::-webkit-scrollbar {

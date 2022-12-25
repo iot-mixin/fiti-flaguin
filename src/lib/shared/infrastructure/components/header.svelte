@@ -1,5 +1,6 @@
 <script lang="ts">
   export let isLoggedIn = false;
+  export let logoutAction: string;
 </script>
 
 <header>
@@ -9,7 +10,7 @@
     </div>
     {#if isLoggedIn}
       <div class="header_nav--logout">
-        <form action="/?/logout" method="post" style="display: inline;">
+        <form action={logoutAction} method="post" style="display: inline;">
           <button type="submit">Logout</button>
         </form>
       </div>
