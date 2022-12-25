@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AddPhrase from "$lib/phrases/infrastructure/components/add-phrase.svelte";
   import Phrase from "$lib/phrases/infrastructure/components/phrase.svelte";
   import type { PageData } from "./$types";
 
@@ -13,6 +14,7 @@
       removeable={phrase.user_id === data.session?.user.id}
     />
   {/each}
+  <AddPhrase />
 </article>
 
 <style>
