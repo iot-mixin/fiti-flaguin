@@ -52,9 +52,9 @@
       removeable={phrase.user_id === user_id}
       liked={phrase.likes.some((like) => like.user_id === user_id)}
       likeCount={phrase.likes.length}
-      on:cancel={async () => await deletePhrase(phrase.id)}
-      on:like={async () => await likedPhrase(phrase.id)}
-      on:unlike={async () => await unLikePhrase(phrase.id)}
+      on:cancel={async () => deletePhrase(phrase.id)}
+      on:like={async () => likedPhrase(phrase.id)}
+      on:unlike={async () => unLikePhrase(phrase.id)}
     />
   {/each}
   <AddPhrase action="/?/addPhrase" {form} />
