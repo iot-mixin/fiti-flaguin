@@ -15,8 +15,8 @@ export const POST: RequestHandler = async (event) => {
   if (session == null) {
     throw error(403);
   }
-  const data = await request.formData();
-  const content = data.get("content")?.toString();
+  const data = await request.json();
+  const content = data.content;
   if (content == null || content === "") {
     throw error(400, { message: "missing content parameter" });
   }

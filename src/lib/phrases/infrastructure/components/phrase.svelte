@@ -4,6 +4,7 @@
   import likedImg from "$lib/assets/liked.png";
   import dayjs from "dayjs";
   import relativeTime from "dayjs/plugin/relativeTime";
+  import Posit from "./posit.svelte";
   import { createEventDispatcher } from "svelte";
   dayjs.extend(relativeTime);
 
@@ -25,43 +26,36 @@
   function handleUnLikeOnClick() {
     dispatch("unlike", {});
   }
-
-  const borderClasses = ["", "border-2", "border-3", "border-4", "border-5", "border-6"];
-  const borderIndex = Math.floor(Math.random() * borderClasses.length);
-
-  const colors = ["#fff49c", "#69c7b5", "#b7ddc8", "#f4c4d6", "#9fc7e4"];
-  const colorIndex = Math.floor(Math.random() * colors.length);
 </script>
 
-<div
-  class={`phrase--container border ${borderClasses[borderIndex]} shadow`}
-  style:background={colors[colorIndex]}
->
-  <div class="phrase--header">
-    {#if removeable}
-      <button class="phrase--remove-btn" on:click|preventDefault={handleCancelOnClick}>
-        <img alt="closeButton" src={remove} class="phrase--remove" />
-      </button>
-    {/if}
-  </div>
-  <p class="phrase--content">
-    {content}
-  </p>
-  <div class="phrase--footer">
-    <span class="phrase--footer-date">{dayjs().to(lastUpdate)}</span>
-    <div>
-      {#if likeCount > 0}
-        <span>{likeCount}</span>
+<Posit>
+  <div class="phrase--container">
+    <div class="phrase--header">
+      {#if removeable}
+        <button class="phrase--remove-btn" on:click|preventDefault={handleCancelOnClick}>
+          <img alt="closeButton" src={remove} class="phrase--remove" />
+        </button>
       {/if}
-      <button
-        class="phrase--like-btn"
-        on:click|preventDefault={liked ? handleUnLikeOnClick : handleLikeOnClick}
-      >
-        <img alt="like" src={liked ? likedImg : likeImg} class="phrase--like" />
-      </button>
+    </div>
+    <p class="phrase--content">
+      {content}
+    </p>
+    <div class="phrase--footer">
+      <span class="phrase--footer-date">{dayjs().to(lastUpdate)}</span>
+      <div>
+        {#if likeCount > 0}
+          <span>{likeCount}</span>
+        {/if}
+        <button
+          class="phrase--like-btn"
+          on:click|preventDefault={liked ? handleUnLikeOnClick : handleLikeOnClick}
+        >
+          <img alt="like" src={liked ? likedImg : likeImg} class="phrase--like" />
+        </button>
+      </div>
     </div>
   </div>
-</div>
+</Posit>
 
 <style>
   .phrase--container {
@@ -69,6 +63,8 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 1fr;
+    width: 100%;
+    height: 100%;
   }
 
   .phrase--content {
