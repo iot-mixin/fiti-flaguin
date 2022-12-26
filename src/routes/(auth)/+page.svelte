@@ -1,11 +1,12 @@
 <script lang="ts">
   import AddPhrase from "$lib/phrases/infrastructure/components/add-phrase.svelte";
   import Phrase from "$lib/phrases/infrastructure/components/phrase.svelte";
-  import type { PageData } from "./$types";
+  import type { ActionData, PageData } from "./$types";
   import { invalidate } from "$app/navigation";
   import { onDestroy } from "svelte";
 
   export let data: PageData;
+  export let form: ActionData;
 
   const abortController = new AbortController();
   const user_id = data.session?.user.id;
@@ -51,12 +52,12 @@
       removeable={phrase.user_id === user_id}
       liked={phrase.likes.some((like) => like.user_id === user_id)}
       likeCount={phrase.likes.length}
-      on:cancel={() => deletePhrase(phrase.id)}
-      on:like={() => likedPhrase(phrase.id)}
-      on:unlike={() => unLikePhrase(phrase.id)}
+      on:cancel={async () => await deletePhrase(phrase.id)}
+      on:like={async () => await likedPhrase(phrase.id)}
+      on:unlike={async () => await unLikePhrase(phrase.id)}
     />
   {/each}
-  <AddPhrase />
+  <AddPhrase action="/?/addPhrase" {form} />
 </article>
 
 <style>
