@@ -2,14 +2,21 @@
   import { enhance } from "$app/forms";
   import type { ActionData } from "./$types";
   import logo from "$lib/assets/google-icon.svg";
+  import { getContext } from "svelte";
+  import type FeatureFlags from "$lib/shared/domain/featureFlags";
+  import { FeatureFlagsKey } from "$lib/shared/domain/featureFlags";
 
+  const { featureFlags } = getContext<{ featureFlags: FeatureFlags }>(FeatureFlagsKey);
   export let form: ActionData;
 </script>
 
 <article class="login">
   <div class="card border login--card">
     <div class="card-body login--card-body">
-      <h4 class="card-title login--card-title">LOG In To Your account</h4>
+      <h4 class="card-title">LOG In To Your account</h4>
+      {#if featureFlags?.isJustASimpleTestEnabled()}
+        <h5 class="card-subtitle">Nice Flag for U men</h5>
+      {/if}
       <div class="login--card-options">
         <form action="/login?/loginWithGoogle" method="post" use:enhance>
           {#if form?.method === "loginWithGoogle" && form?.error}

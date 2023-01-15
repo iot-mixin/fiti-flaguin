@@ -6,7 +6,6 @@ export const handle: Handle = async ({ event, resolve }) => {
   // protect requests to all routes that start with /(auth)
   if (event.route.id?.startsWith("/(auth)")) {
     const { session } = await getSupabase(event);
-
     if (!session) {
       throw redirect(303, "/login");
     }

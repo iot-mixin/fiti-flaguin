@@ -1,9 +1,26 @@
+<script lang="ts" context="module">
+  import { browser } from "$app/environment";
+  import type FeatureFlags from "$lib/shared/domain/featureFlags";
+  import PostHogClientFactory from "$lib/shared/infrastructure/featureFlags/postHogClientFactory";
+  import PostHogFeatureFlags from "$lib/shared/infrastructure/featureFlags/posthogFeatureFlags";
+
+  let featureFlags: FeatureFlags;
+  if (browser) {
+    featureFlags = new PostHogFeatureFlags(PostHogClientFactory.createClient());
+  }
+</script>
+
 <script lang="ts">
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import { supabaseClient } from "$lib/db";
   import Header from "$lib/shared/infrastructure/components/header.svelte";
-  import { onMount } from "svelte";
+  import { onMount, setContext } from "svelte";
+  import { FeatureFlagsKey } from "$lib/shared/domain/featureFlags";
+
+  setContext<{ featureFlags: FeatureFlags }>(FeatureFlagsKey, {
+    featureFlags
+  });
 
   onMount(() => {
     const {

@@ -41,6 +41,7 @@ The following environment variables are required to deploy the server:
 | :----------------------- | :------------------- | :----: |
 | `PUBLIC_SUPABASE_URL`    | Supabase project url | string |
 | `PUBLIC_SUPABASE_KEY` 🔑 | Supabase project key | string |
+| `PUBLIC_POSTHOG_KEY` 🔑  | PostHog project key  | string |
 
 **Notes:**
 
