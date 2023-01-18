@@ -10,14 +10,6 @@ export const load: LayoutLoad = async (event) => {
 
   let featureFlags!: FeatureFlags;
   if (browser) {
-    const client = PostHogClientFactory.createClient();
-    await new Promise<void>((resolve, reject) => {
-      try {
-        client.onFeatureFlags(() => resolve());
-      } catch (err) {
-        reject();
-      }
-    });
     featureFlags = new PostHogFeatureFlags(PostHogClientFactory.createClient());
   }
   return { session, featureFlags };

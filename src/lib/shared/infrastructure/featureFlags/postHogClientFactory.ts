@@ -5,10 +5,10 @@ import { posthog } from "posthog-js";
 export default class PostHogClientFactory {
   private static client: PostHog;
 
-  static createClient(): PostHog {
+  static async createClient(): Promise<PostHog> {
     let client = PostHogClientFactory.getClient();
     if (client == null) {
-      client = PostHogClientFactory.createAndConnectClient();
+      client = await PostHogClientFactory.createAndConnectClient();
       PostHogClientFactory.registerClient(client);
     }
     return client;
@@ -18,11 +18,19 @@ export default class PostHogClientFactory {
     return PostHogClientFactory.client;
   }
 
-  private static createAndConnectClient(): PostHog {
-    return posthog.init(PUBLIC_POSTHOG_KEY, {
+  private static async createAndConnectClient(): Promise<PostHog> {
+    const client = posthog.init(PUBLIC_POSTHOG_KEY, {
       api_host: "https://eu.posthog.com",
       autocapture: false
     }) as PostHog;
+    await new Promise<void>((resolve, reject) => {
+      try {
+        client.onFeatureFlags(() => resolve());
+      } catch (err) {
+        reject();
+      }
+    });
+    return client;
   }
 
   private static registerClient(client: PostHog): void {

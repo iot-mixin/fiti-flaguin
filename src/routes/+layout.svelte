@@ -2,17 +2,13 @@
   import { invalidate } from "$app/navigation";
   import { page } from "$app/stores";
   import { supabaseClient } from "$lib/db";
-  import type FeatureFlags from "$lib/shared/domain/featureFlags";
-  import { FeatureFlagsKey } from "$lib/shared/domain/featureFlags";
   import Header from "$lib/shared/infrastructure/components/header.svelte";
-  import { onMount, setContext } from "svelte";
+  import { initFlagContext } from "$lib/shared/infrastructure/featureFlags/context";
+  import { onMount } from "svelte";
   import type { LayoutData } from "./$types";
 
   export let data: LayoutData;
-
-  setContext<{ featureFlags: FeatureFlags }>(FeatureFlagsKey, {
-    featureFlags: data.featureFlags
-  });
+  initFlagContext(data.featureFlags);
 
   onMount(() => {
     const {

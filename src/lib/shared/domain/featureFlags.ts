@@ -1,5 +1,3 @@
 export default interface FeatureFlags {
-  isJustASimpleTestEnabled(): boolean;
+  isJustASimpleTestEnabled(): Promise<boolean>;
 }
-
-export const FeatureFlagsKey = Symbol();
