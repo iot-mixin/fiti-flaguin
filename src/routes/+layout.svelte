@@ -3,7 +3,12 @@
   import { page } from "$app/stores";
   import { supabaseClient } from "$lib/db";
   import Header from "$lib/shared/infrastructure/components/header.svelte";
+  import { initFlagContext } from "$lib/shared/infrastructure/featureFlags/context";
   import { onMount } from "svelte";
+  import type { LayoutData } from "./$types";
+
+  export let data: LayoutData;
+  initFlagContext(data.featureFlags);
 
   onMount(() => {
     const {
