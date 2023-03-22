@@ -12,4 +12,8 @@ export default class PostHogFeatureFlags implements FeatureFlags {
   async isJustASimpleTestEnabled() {
     return this.checkFlag("JustASimpleTest");
   }
+
+  async isCustomTitleEnabled() {
+    return this.checkFlag("enableCustomTitle");
+  }
 }

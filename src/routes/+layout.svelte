@@ -1,6 +1,5 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation";
-  import { page } from "$app/stores";
   import { supabaseClient } from "$lib/db";
   import Header from "$lib/shared/infrastructure/components/header.svelte";
   import { initFlagContext } from "$lib/shared/infrastructure/featureFlags/context";
@@ -23,7 +22,14 @@
   });
 </script>
 
-<Header isLoggedIn={$page.data.session !== null} logoutAction="/?/logout" />
+{#await data.featureFlags?.isCustomTitleEnabled() then showWelcomeBack}
+  <Header
+    isLoggedIn={data.session !== null}
+    logoutAction="/?/logout"
+    userName={data.session?.user.user_metadata.name}
+    {showWelcomeBack}
+  />
+{/await}
 <main>
   <slot />
 </main>

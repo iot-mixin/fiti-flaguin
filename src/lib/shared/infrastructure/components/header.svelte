@@ -1,12 +1,18 @@
 <script lang="ts">
   export let isLoggedIn = false;
   export let logoutAction: string;
+  export let userName: string;
+  export let showWelcomeBack: boolean;
 </script>
 
 <header>
   <nav class="border split-nav header_nav--container">
     <div class="nav-brand">
-      <h4><a href="/">Welcome to Fiti Flaguin</a></h4>
+      {#if !isLoggedIn || !showWelcomeBack}
+        <h4><a href="/">Welcome to Fiti Flaguin</a></h4>
+      {:else}
+        <h4><a href="/">Welcome back {userName}</a></h4>
+      {/if}
     </div>
     {#if isLoggedIn}
       <div class="header_nav--logout">

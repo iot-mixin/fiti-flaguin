@@ -3,9 +3,10 @@
   import type { ActionData } from "./$types";
   import logo from "$lib/assets/google-icon.svg";
   import { getFeatureFlags } from "$lib/shared/infrastructure/featureFlags/context";
+  import type FeatureFlags from "$lib/shared/domain/featureFlags";
 
   export let form: ActionData;
-  const featureFlags = getFeatureFlags();
+  const featureFlags: FeatureFlags = getFeatureFlags();
 </script>
 
 <article class="login">
