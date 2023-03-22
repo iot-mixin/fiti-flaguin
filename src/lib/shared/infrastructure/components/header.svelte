@@ -3,7 +3,6 @@
   export let logoutAction: string;
   export let userName: string;
   export let showWelcomeBack: boolean;
-  console.log(userName, showWelcomeBack);
 </script>
 
 <header>
