@@ -8,7 +8,7 @@
 <header>
   <nav class="border split-nav header_nav--container">
     <div class="nav-brand">
-      {#if isLoggedIn && !showWelcomeBack}
+      {#if !isLoggedIn || !showWelcomeBack}
         <h4><a href="/">Welcome to Fiti Flaguin</a></h4>
       {:else}
         <h4><a href="/">Welcome back {userName}</a></h4>
