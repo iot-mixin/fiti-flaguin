@@ -2,14 +2,17 @@
   import AddPhrase from "$lib/phrases/infrastructure/components/add-phrase.svelte";
   import Phrase from "$lib/phrases/infrastructure/components/phrase.svelte";
   import type { ActionData, PageData } from "./$types";
-  import { invalidate } from "$app/navigation";
+  import { goto, invalidate } from "$app/navigation";
   import { onDestroy } from "svelte";
+  import type FeatureFlags from "$lib/shared/domain/featureFlags";
+  import { getFeatureFlags } from "$lib/shared/infrastructure/featureFlags/context";
 
   export let data: PageData;
   export let form: ActionData;
 
   const abortController = new AbortController();
   const user_id = data.session?.user.id;
+  const featureFlags: FeatureFlags = getFeatureFlags();
 
   onDestroy(() => abortController.abort());
 
@@ -24,12 +27,17 @@
   }
 
   async function likedPhrase(id: bigint) {
-    const response = await fetch(`/api/v1/phrases/${id.toString()}/likes`, {
-      method: "PUT",
-      signal: abortController.signal
-    });
-    if (response.status === 200) {
-      invalidate("app:phrases");
+    console.log(await featureFlags.isNewLikeEnabled());
+    if (await featureFlags.isNewLikeEnabled()) {
+      await goto("/ERROR-HAHAH");
+    } else {
+      const response = await fetch(`/api/v1/phrases/${id.toString()}/likes`, {
+        method: "PUT",
+        signal: abortController.signal
+      });
+      if (response.status === 200) {
+        invalidate("app:phrases");
+      }
     }
   }
 
