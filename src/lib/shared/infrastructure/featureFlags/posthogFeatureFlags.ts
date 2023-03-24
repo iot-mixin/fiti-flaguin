@@ -16,4 +16,8 @@ export default class PostHogFeatureFlags implements FeatureFlags {
   async isCustomTitleEnabled() {
     return this.checkFlag("enableCustomTitle");
   }
+
+  async isNewLikeEnabled() {
+    return this.checkFlag("EnableNewLikeLogic");
+  }
 }
